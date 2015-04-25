@@ -2,6 +2,7 @@ package castillo.apptaxista;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +19,12 @@ import android.view.ViewGroup;
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
     private static Context context;
+    public int nt;
+    public String ntx;
+    public int logged = 0;
+    public int estado;
+    String Latitud ="";
+    String Longitud = "";
 
     public static Context getAppContext()
     {
@@ -40,6 +47,20 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
         this.context = getApplicationContext();
 
+
+        if (logged==0){
+            final Intent lIntent = new Intent(this, login.class);
+            startActivity(lIntent);
+        }
+        Intent l = getIntent();
+        Bundle b = l.getExtras();
+        ntx = (String) b.get("ntx") ;
+        nt = (int) b.get("nt");
+        logged = (int) b.get("iL");
+
+
+
+
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -49,6 +70,8 @@ public class MainActivity extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
+
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
